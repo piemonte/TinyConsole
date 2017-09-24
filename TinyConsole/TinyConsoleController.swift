@@ -29,7 +29,7 @@ open class TinyConsoleController: UIViewController {
     }
     
     // MARK: - Private Properties -
-    private var rootViewController: UIViewController
+    public var rootViewController: UIViewController
     
     private var consoleViewController: TinyConsoleViewController = {
         return TinyConsoleViewController()
