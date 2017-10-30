@@ -108,6 +108,18 @@ open class TinyConsoleController: UIViewController {
         }
     }
     
+    open override var childViewControllerForStatusBarHidden: UIViewController? {
+        get {
+            return self.rootViewController
+        }
+    }
+    
+    open override var childViewControllerForStatusBarStyle: UIViewController? {
+        get {
+            return self.rootViewController
+        }
+    }
+    
     // MARK: - Private Methods -
     private func setupConstraints() {
         
