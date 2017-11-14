@@ -57,7 +57,7 @@ class TinyConsoleViewController: UIViewController {
         }
     }
     
-    func customText(sender: UITapGestureRecognizer) {
+    @objc func customText(sender: UITapGestureRecognizer) {
         let alert = UIAlertController(title: "Custom Log", message: "Enter text you want to log.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addTextField { (textField: UITextField) in
             textField.keyboardType = .alphabet
@@ -78,7 +78,7 @@ class TinyConsoleViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func additionalActions(sender: UITapGestureRecognizer) {
+    @objc func additionalActions(sender: UITapGestureRecognizer) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let sendMail = UIAlertAction(title: "Send Email", style: UIAlertActionStyle.default) {
@@ -108,7 +108,7 @@ class TinyConsoleViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func addMarker(sender: UISwipeGestureRecognizer) {
+    @objc func addMarker(sender: UISwipeGestureRecognizer) {
         TinyConsole.addMarker()
     }
 }
