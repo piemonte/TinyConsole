@@ -3,7 +3,7 @@
 # TinyConsole
 
 <img src="https://img.shields.io/badge/platform-iOS-blue.svg?style=flat" alt="Platform iOS" />
-<img src="https://img.shields.io/badge/swift4.2-compatible-green.svg?style=flat" alt="Swift 3 compatible" />
+<img src="https://img.shields.io/badge/swift3-compatible-green.svg?style=flat" alt="Swift 3 compatible" />
 <img src="https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat" alt="Carthage compatible" />
 <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License MIT" />
 
@@ -24,10 +24,10 @@ TinyConsoleController(rootViewController: MyMainViewController())
 // Print message
 TinyConsole.print("hello")
 
-// Print messages any color you want
+// Print messages any color you want 
 TinyConsole.print("green text", color: UIColor.green)
 
-// Print a red error message
+// Print a red error message 
 TinyConsole.error("something went wrong")
 
 // Print a marker for orientation
