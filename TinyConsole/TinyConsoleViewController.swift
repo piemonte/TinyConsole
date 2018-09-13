@@ -58,19 +58,19 @@ class TinyConsoleViewController: UIViewController {
     }
     
     @objc func customText(sender: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: "Custom Log", message: "Enter text you want to log.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Custom Log", message: "Enter text you want to log.", preferredStyle: UIAlertController.Style.alert)
         alert.addTextField { (textField: UITextField) in
             textField.keyboardType = .alphabet
         }
         
-        let okAction = UIAlertAction(title: "Add log", style: UIAlertActionStyle.default) {
+        let okAction = UIAlertAction(title: "Add log", style: UIAlertAction.Style.default) {
             (action: UIAlertAction) in
             if let text = alert.textFields?.first?.text, !text.isEmpty {
                 TinyConsole.print(text)
             }
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -79,9 +79,9 @@ class TinyConsoleViewController: UIViewController {
     }
     
     @objc func additionalActions(sender: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let sendMail = UIAlertAction(title: "Send Email", style: UIAlertActionStyle.default) {
+        let sendMail = UIAlertAction(title: "Send Email", style: UIAlertAction.Style.default) {
             (action: UIAlertAction) in
             DispatchQueue.main.async {
                 if let text = TinyConsole.shared.textView?.text {
@@ -94,12 +94,12 @@ class TinyConsoleViewController: UIViewController {
             }
         }
         
-        let clearAction = UIAlertAction(title: "Clear", style: UIAlertActionStyle.destructive) {
+        let clearAction = UIAlertAction(title: "Clear", style: UIAlertAction.Style.destructive) {
             (action: UIAlertAction) in
             TinyConsole.clear()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
         alert.addAction(sendMail)
         alert.addAction(clearAction)

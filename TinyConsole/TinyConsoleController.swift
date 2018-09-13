@@ -89,32 +89,32 @@ open class TinyConsoleController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        addChildViewController(consoleViewController)
+        addChild(consoleViewController)
         consoleViewController.view.frame = consoleFrame
         view.addSubview(consoleViewController.view)
-        consoleViewController.didMove(toParentViewController: self)
+        consoleViewController.didMove(toParent: self)
         
-        addChildViewController(rootViewController)
+        addChild(rootViewController)
         rootViewController.view.frame = CGRect(x: consoleFrame.minX, y: consoleFrame.maxY, width: view.bounds.width, height: 120)
         view.addSubview(rootViewController.view)
-        rootViewController.didMove(toParentViewController: self)
+        rootViewController.didMove(toParent: self)
         
         setupConstraints()
     }
     
-    open override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if (motion == UIEventSubtype.motionShake && shakeEnabled == true) {
+    open override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if (motion == UIEvent.EventSubtype.motionShake && shakeEnabled == true) {
             self.update(windowMode: (consoleWindowMode == .collapsed ? .expanded : .collapsed), animated: true)
         }
     }
     
-    open override var childViewControllerForStatusBarHidden: UIViewController? {
+    open override var childForStatusBarHidden: UIViewController? {
         get {
             return self.rootViewController
         }
     }
     
-    open override var childViewControllerForStatusBarStyle: UIViewController? {
+    open override var childForStatusBarStyle: UIViewController? {
         get {
             return self.rootViewController
         }
