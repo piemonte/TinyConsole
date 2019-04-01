@@ -14,6 +14,8 @@ Shows a console view on the lower bottom of your screen to display debug informa
   s.source           = { :git => 'https://github.com/Cosmo/TinyConsole.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/maccosmo'
 
+  s.swift_version   = '4.2'
+
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'TinyConsole/**/*'
