@@ -85,7 +85,7 @@ class TinyConsoleViewController: UIViewController {
             (action: UIAlertAction) in
             DispatchQueue.main.async {
                 if let text = TinyConsole.shared.textView?.text {
-                    let composeViewController = MFMailComposeViewController()
+                    let composeViewController = MFMailComposeViewController(nibName: nil, bundle: nil)
                     composeViewController.mailComposeDelegate = self
                     composeViewController.setSubject("Console Log")
                     composeViewController.setMessageBody(text, isHTML: false)
