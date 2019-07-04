@@ -81,15 +81,75 @@ class TinyConsoleViewController: UIViewController {
     @objc func additionalActions(sender: UITapGestureRecognizer) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let sendMail = UIAlertAction(title: "Send Email", style: UIAlertAction.Style.default) {
+        let sendAction = UIAlertAction(title: "Send…", style: UIAlertAction.Style.default) {
             (action: UIAlertAction) in
             DispatchQueue.main.async {
                 if let text = TinyConsole.shared.textView?.text {
-                    let composeViewController = MFMailComposeViewController(nibName: nil, bundle: nil)
-                    composeViewController.mailComposeDelegate = self
-                    composeViewController.setSubject("Console Log")
-                    composeViewController.setMessageBody(text, isHTML: false)
-                    self.present(composeViewController, animated: true, completion: nil)
+                    if MFMailComposeViewController.canSendMail() {
+                        let composeViewController = MFMailComposeViewController(nibName: nil, bundle: nil)
+                        composeViewController.mailComposeDelegate = self
+                        composeViewController.setSubject("Console Log")
+                        composeViewController.setMessageBody(text, isHTML: false)
+                        self.present(composeViewController, animated: true, completion: nil)
+                    } else {
+                        let activityItems: [Any] = [text]
+                        
+                        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+                        activityViewController.excludedActivityTypes = [.saveToCameraRoll,
+                                                                        .print,
+                                                                        .assignToContact,
+                                                                        .addToReadingList,
+                                                                        .postToVimeo,
+                                                                        .postToWeibo,
+                                                                        .postToFlickr]
+                        activityViewController.completionWithItemsHandler = { (activityType, completed, items, error) in
+                            if let _ = error {
+                                self.dismiss(animated: false, completion: {
+                                })
+                            } else if completed {
+                                // prepare message
+                                var confirmMessage: String? = nil
+                                if let activity = activityType {
+                                    switch activity {
+                                    case UIActivity.ActivityType.copyToPasteboard:
+                                        confirmMessage = NSLocalizedString("Copied!", comment: "Copied!")
+                                        break
+                                    case UIActivity.ActivityType.postToFacebook:
+                                        fallthrough
+                                    case UIActivity.ActivityType.postToTwitter:
+                                        fallthrough
+                                    case UIActivity.ActivityType.postToWeibo:
+                                        fallthrough
+                                    case UIActivity.ActivityType.postToTencentWeibo:
+                                        confirmMessage = NSLocalizedString("Posted!", comment: "Posted!")
+                                        break
+                                    case UIActivity.ActivityType.postToFlickr:
+                                        fallthrough
+                                    case UIActivity.ActivityType.postToVimeo:
+                                        confirmMessage = NSLocalizedString("Posted!", comment: "Posted!")
+                                        break
+                                    case UIActivity.ActivityType.airDrop:
+                                        fallthrough
+                                    case UIActivity.ActivityType.mail:
+                                        fallthrough
+                                    case UIActivity.ActivityType.message:
+                                        fallthrough
+                                    default:
+                                        confirmMessage = NSLocalizedString("Sent!", comment: "Sent!")
+                                        break
+                                    }
+                                }
+                                
+                                if let confirmMessage = confirmMessage {
+                                    let confirmAlert = UIAlertController(title: confirmMessage,
+                                                                         message: nil,
+                                                                         preferredStyle: .alert)
+                                    self.present(confirmAlert, animated: true, completion:nil)
+                                }
+                            }
+                        }
+                        self.present(activityViewController, animated: true)
+                    }
                 }
             }
         }
@@ -101,7 +161,7 @@ class TinyConsoleViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
-        alert.addAction(sendMail)
+        alert.addAction(sendAction)
         alert.addAction(clearAction)
         alert.addAction(cancelAction)
         
