@@ -120,6 +120,18 @@ open class TinyConsoleController: UIViewController {
         }
     }
     
+    open override var prefersStatusBarHidden: Bool {
+        get {
+            return self.rootViewController.prefersStatusBarHidden
+        }
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        get {
+            return self.rootViewController.preferredStatusBarStyle
+        }
+    }
+    
     // MARK: - Private Methods -
     private func setupConstraints() {
         
