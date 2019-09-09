@@ -19,4 +19,5 @@ Shows a console view on the lower bottom of your screen to display debug informa
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'TinyConsole/**/*'
+  s.exclude_files = 'TinyConsole/**/*.plist'
 end
