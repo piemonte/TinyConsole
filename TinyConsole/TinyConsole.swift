@@ -30,7 +30,7 @@ open class TinyConsole {
         return formatter
     }()
     
-    var shakeEnabled: Bool {
+    public var shakeEnabled: Bool {
         get {
             return TinyConsole.shared.tinyConsoleController?.shakeEnabled ?? false
         }
