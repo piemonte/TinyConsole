@@ -67,7 +67,13 @@ open class TinyConsoleController: UIViewController {
     }
     
     // MARK: - Public Methods -
-    public var shakeEnabled: Bool = true
+    public var shakeEnabled: Bool = false {
+        didSet {
+            if consoleWindowMode == .expanded && self.shakeEnabled == false {
+                self.consoleWindowMode = .collapsed
+            }
+        }
+    }
     
     public var consoleWindowMode: WindowMode = .collapsed {
         didSet {
